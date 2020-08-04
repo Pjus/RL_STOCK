@@ -12,5 +12,5 @@ data.index = range(len(data))
 COLUMNS_CHART_DATA = ['Date', 'Open', 'High', 'Low', 'Close', 'Volume']
 
 COLUMNS_TRAINING_DATA = [
-    'open_lastclose_ratio', 'high_close_ratio', 
+    'open_lastclose_ratio', 'high_close_ratio', 'stock_code',
 ]
