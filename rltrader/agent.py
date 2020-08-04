@@ -160,11 +160,55 @@ class Agent:
 
             if invest_amount > 0:
                 self.balance -= invest_amount # 보유현금을 갱신
-                self.num_stocks += trading_unit
-                self.num_buy += 1
+                self.num_stocks += trading_unit # 보유 주식 수 갱신
+                self.num_buy += 1 # 매도 횟수 증가
         
         # 매도
+        elif action == Agent.ACTION_SELL:
+            # 매도할 단위를 판단
+            trading_unit = self.decide_trading_unit(confidence)
+            
+            # 보유 주식이 모자랄 경우 가능한 만큼 최대한 매도
+            trading_unit = min(trading_unit, self.num_stocks)
+
+            # 매도
+            invest_amount = curr_price * (1 - (self.TRADING_TAX + self.TRADING_CHARGE)) * trading_unit
+
+            if invest_amount > 0:
+                self.balance += invest_amount
+                self.num_stocks -= trading_unit
+                self.num_sell += 1
         
+        # 홀딩
+        elif action == Agent.ACTION_HOLD:
+            self.num_hold += 1
+        
+        # 포트폴리오 가치 갱신
+        self.portfolio_value = self.balance + curr_price * self.num_stocks
+        self.profitloss = ((self.portfolio_value - self.initial_balance) / self.initial_balance)
+
+        # 즉시보상 = 수익률
+        self.immediate_reward = self.profitloss
+
+        # 지연보상 = 익절 손절 기준
+        delayed_reward = 0
+        self.base_profitloss = ((self.portfolio_value - self.base_portfolio_value) / self.base_portfolio_value)
+
+        if self.base_profitloss > self.delayed_reward_threshold or self.base_profitloss < self.delayed_reward_threshold:
+            # 목표 수익률을 달성하여 기존 포트폴리오 가치 갱신
+            # 손실 기준치를 초과하여 기준 포트폴리오 가치 갱신
+            self.base_portfolio_value = self.portfolio_value
+            delayed_reward = self.immediate_reward
+        else:
+            delayed_reward = 0
+        
+        return self.immediate_reward, delayed_reward
+        
+            
+
+
+
+
 
 
 
