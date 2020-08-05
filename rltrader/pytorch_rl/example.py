@@ -51,6 +51,9 @@ class ReplayMemory(object):
 class DQN(nn.Module):
 
     def __init__(self, h, w, outputs):
-        
+        super(DQN, self).__init__()
+        # (3, 16, 5) input channel size, output volume size, kernel size(filter size)
+        # 
+        self.conv1 = nn.Conv2d(3, 16, kernel_size=5, stride=2)
 
     
