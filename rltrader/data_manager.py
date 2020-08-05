@@ -34,24 +34,18 @@ def preprocess(data, ver='v1'):
         data = indicator.fnBolingerBand(data, window)
         data['Bol_upper_close_ratio{}'.format(window)] = data['Bol_upper_{}'.format(window)] / data['close_ma{}'.format(window)]
         data['Bol_lower_close_ratio{}'.format(window)] = data['Bol_lower_{}'.format(window)] / data['close_ma{}'.format(window)]
-
+        
         # RSI
         data = indicator.fnRSI(data, window)
-
         # CCI
         data = indicator.CCI(data, window)
-
-
         # EVM
         data = indicator.EVM(data, window)
-
         # EWMA
         data = indicator.EWMA(data, window)
         data['EWMA_SMA_ratio{}'.format(window)] = data['EWMA_{}'.format(window)] / data['close_ma{}'.format(window)]
-
         # ROC
         data = indicator.ROC(data, window)
-
         # forceindex
         data = indicator.ForceIndex(data, window)
         data['FI_OBV_ratio{}'.format(window)] = data['FI_{}'.format(window)] / data['OBV']
@@ -70,17 +64,6 @@ def get_train_data(chart_data):
 
     return TRAIN_DATA
 
-
-if __name__ == "__main__":
-    ticker = 'AAPL'
-    start_date = '2001-01-01'
-    end_date = '2020-08-01'
-
-    chart_data = load_data(ticker, start_date, end_date)
-    preprocessed = preprocess(chart_data)
-    train_data = get_train_data(preprocessed)
-
-    print(train_data)
 
 
 
