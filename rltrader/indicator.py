@@ -111,7 +111,7 @@ def CCI(data, ndays):
     TP = (data['High'] + data['Low'] + data['Close']) / 3 
     CCI = pd.Series((TP - TP.rolling(ndays).mean()) / (0.015 * TP.rolling(ndays).std()),
                     name = 'CCI') 
-    data['CCI_{}'.format(ndays)] = CCI
+    data['CCI_{}'.format(ndays)] = CCI / 100
     return data
 
 # Ease Of Movement (EVM) Code
