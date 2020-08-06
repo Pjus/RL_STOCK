@@ -2,7 +2,7 @@
 # render 는 환경에서 설정
 
 import gym
-import numpy as nps
+import numpy as np
 from collections import deque
 
 MAX_ACCOUNT_BALANCE = 2147483647
@@ -13,6 +13,8 @@ INITIAL_ACCOUNT_BALANCE = 10000
 class CustomStockEnv(gym.Env):
 
     metadata = {'render.modes' : ['live', 'file', 'none']}
+
+
     
     def __init__(self, data):
         super(CustomStockEnv, self).__init__()
@@ -70,27 +72,50 @@ class CustomStockEnv(gym.Env):
 
 
     def _next_observation(self):
-        self.stock_open = self.data.loc[self.current_step: self.current_step, 'Open'].values / self.max_open 
-        self.stock_high = self.data.loc[self.current_step: self.current_step, 'High'].values / self.max_high
-        self.stock_close = self.data.loc[self.current_step: self.current_step, 'Close'].values / self.max_close
-        self.stock_low = self.data.loc[self.current_step: self.current_step, 'Low'].values / self.max_low
-        self.stock_volume = self.data.loc[self.current_step: self.current_step, 'Volume'].values / self.max_volume
 
-        self.obs_open = deque(maxlen=20)
-        self.obs_high = deque(maxlen=20)
-        self.obs_close = deque(maxlen=20)
-        self.obs_low = deque(maxlen=20)
-        self.obs_volume = deque(maxlen=20)
+        self.obs_open = deque(np.zeros(20), maxlen=20)
+        self.obs_high = deque(np.zeros(20), maxlen=20)
+        self.obs_close = deque(np.zeros(20), maxlen=20)
+        self.obs_low = deque(np.zeros(20), maxlen=20)
+        self.obs_volume = deque(np.zeros(20), maxlen=20)
+
+        self.obs_balance = deque(np.zeros(20), maxlen=20)
+        self.obs_net_worth = deque(np.zeros(20), maxlen=20)
+        self.obs_shares_held = deque(np.zeros(20), maxlen=20)
+        self.obs_cost_basis = deque(np.zeros(20), maxlen=20)
+        self.obs_total_sales_values = deque(np.zeros(20), maxlen=20)
+        self.obs_profits = deque(np.zeros(20), maxlen=20)
 
 
-        self.obs_balance = self.balance / MAX_ACCOUNT_BALANCE
-        self.obs_net_worth = self.net_worth / MAX_ACCOUNT_BALANCE
-        self.obs_shares_held = self.shares_held / MAX_ACCOUNT_BALANCE
-        self.obs_cost_basis = self.cost_basis / MAX_ACCOUNT_BALANCE
-        self.obs_total_sales_values = self.total_sales_values / MAX_ACCOUNT_BALANCE
-        # self.obs_profits = self.
+        self.stock_open = self.data.loc[self.current_step, 'Open'].values / self.max_open 
+        self.stock_high = self.data.loc[self.current_step, 'High'].values / self.max_high
+        self.stock_close = self.data.loc[self.current_step, 'Close'].values / self.max_close
+        self.stock_low = self.data.loc[self.current_step, 'Low'].values / self.max_low
+        self.stock_volume = self.data.loc[self.current_step, 'Volume'].values / self.max_volume
 
-        observation = [self.obs_open, self.obs_high, self.obs_close, self.obs_low, self.obs_volume, ]
+        self.obs_open.append(self.stock_open)
+        self.obs_open.append(self.stock_open)
+        self.obs_open.append(self.stock_open)
+        self.obs_open.append(self.stock_open)
+        self.obs_open.append(self.stock_open)
+
+        self.obs_open.append(self.stock_open)
+        self.obs_open.append(self.stock_open)
+        self.obs_open.append(self.stock_open)
+        self.obs_open.append(self.stock_open)
+        self.obs_open.append(self.stock_open)
+
+
+        self.balance = self.balance / MAX_ACCOUNT_BALANCE
+        self.net_worth = self.net_worth / MAX_ACCOUNT_BALANCE
+        self.shares_held = self.shares_held / MAX_ACCOUNT_BALANCE
+        self.cost_basis = self.cost_basis / MAX_ACCOUNT_BALANCE
+        self.total_sales_values = self.total_sales_values / MAX_ACCOUNT_BALANCE
+        # self.profits = 
+
+        observation = [self.obs_open, self.obs_high, self.obs_close, self.obs_low, self.obs_volume,\
+            self.obs_balance, self.obs_net_worth, self.obs_shares_held, self.obs_cost_basis, self.obs_total_sales_values, self.obs_profits]
+    
         
         return observation
 
