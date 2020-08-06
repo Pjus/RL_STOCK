@@ -76,7 +76,7 @@ class Agent:
 
         return (self.ratio_hold, self.ratio_portfolio_value)
 
-    def decide_action(self, pred_value. pred_policy, epsilon):
+    def decide_action(self, pred_value, pred_policy, epsilon):
         confidence = 0
 
         pred = pred_policy
