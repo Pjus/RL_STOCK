@@ -43,15 +43,9 @@ function search_stock(){
             var low = str['3. low'];
             var close = str['4. close'];
             var volume = str['5. volume'];
-            document.write(date, '\n', open,'\n', high,'\n', low,'\n', close);
-            document.write ("<br>");
+            // document.write(date, '\n', open,'\n', high,'\n', low,'\n', close);
+            // document.write ("<br>");
         }
       }
 }
 
-function chart(){
-    var ctx = document.getElementById('myChart').getContext('2d');
-    var myChart = new Chart(ctx, {
-        type
-    })
-}

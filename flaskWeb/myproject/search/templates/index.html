@@ -2,15 +2,9 @@
 <html>
   <head>
     <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
-
-    <!-- Styles -->
-    <link type="text/css" rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.6/themes/base/jquery-ui.css" media="all" />
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.0/jquery.min.js"></script>
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.9/jquery-ui.min.js"></script>
-    <script type="text/javascript" src="https://jquery-ui.googlecode.com/svn/trunk/ui/i18n/jquery.ui.datepicker-ko.js" charset="utf-8"></script>
-
-    <script type="text/javascript" src="http://jqueryui.com/ui/i18n/jquery.ui.datepicker-ko.js" charset="utf-8"></script>
     <script src="/static/js/test.js"></script>
+
+
 
   </head>
 
@@ -21,12 +15,82 @@
     </span>
     <button type='submit' class='sch_smit', onclick="search_stock()">검색</button>
 
-    <div class="weather">
-      <div class="CurrIcon"></div>
-      <div class="CurrTemp"></div>
-      <div class="City"></div>
+    <div id="data">
+        
     </div>
-    <div id="chartContainer" style="height: 450px; width: 100%;"></div>
-
   </body>
 </html>
+
+
+
+<!-- <!DOCTYPE HTML>
+<html>
+<head>
+<script>
+window.onload = function () {
+
+var dataPoints = [];
+
+var chart = new CanvasJS.Chart("chartContainer", {
+	animationEnabled: true,
+	theme: "light2", // "light1", "light2", "dark1", "dark2"
+	exportEnabled: true,
+	title: {
+		text: "Netflix Stock Price in 2016"
+	},
+	subtitles: [{
+		text: "Weekly Averages"
+	}],
+	axisX: {
+		interval: 1,
+		valueFormatString: "MMM"
+	},
+	axisY: {
+		prefix: "$",
+		title: "Price"
+	},
+	toolTip: {
+		content: "Date: {x}<br /><strong>Price:</strong><br />Open: {y[0]}, Close: {y[3]}<br />High: {y[1]}, Low: {y[2]}"
+	},
+	data: [{
+		type: "candlestick",
+		yValueFormatString: "$##0.00",
+		dataPoints: dataPoints
+	}]
+});
+
+$.get("https://canvasjs.com/data/gallery/javascript/netflix-stock-price.csv", getDataPointsFromCSV);
+
+function getDataPointsFromCSV(csv) {
+	var csvLines = points = [];
+	csvLines = csv.split(/[\r?\n|\r|\n]+/);
+	for (var i = 0; i < csvLines.length; i++) {
+		if (csvLines[i].length > 0) {
+			points = csvLines[i].split(",");
+			dataPoints.push({
+				x: new Date(
+					parseInt(points[0].split("-")[0]),
+					parseInt(points[0].split("-")[1]),
+					parseInt(points[0].split("-")[2])
+				),
+				y: [
+					parseFloat(points[1]),
+					parseFloat(points[2]),
+					parseFloat(points[3]),
+					parseFloat(points[4])
+				]
+			});
+		}
+	}
+	chart.render();
+}
+
+}
+</script>
+</head>
+<body>
+<div id="chartContainer" style="height: 370px; width: 100%;"></div>
+
+</body>
+</html>
+ -->
