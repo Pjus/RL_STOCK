@@ -4,6 +4,7 @@
 import gym
 import numpy as np
 from collections import deque
+import random
 
 MAX_ACCOUNT_BALANCE = 2147483647
 LOOKBACK_WINDOW_SIZE = 20
@@ -13,8 +14,6 @@ INITIAL_ACCOUNT_BALANCE = 10000
 class CustomStockEnv(gym.Env):
 
     metadata = {'render.modes' : ['live', 'file', 'none']}
-
-
     
     def __init__(self, data):
         super(CustomStockEnv, self).__init__()
@@ -56,11 +55,14 @@ class CustomStockEnv(gym.Env):
         # 거래한거
         self.trades = []
         
-        return _next_observation()
+        return self._next_observation()
 
 
     def step(self, action):
+        self._take_action(action)
+
         self.current_step += 1
+
         self.delay_modifier = (self.current_step / MAX_STEPS)
         
         # 보상 = (순자산 - 기초자산) * 딜레이 
@@ -93,19 +95,6 @@ class CustomStockEnv(gym.Env):
         self.stock_low = self.data.loc[self.current_step, 'Low'].values / self.max_low
         self.stock_volume = self.data.loc[self.current_step, 'Volume'].values / self.max_volume
 
-        self.obs_open.append(self.stock_open)
-        self.obs_open.append(self.stock_open)
-        self.obs_open.append(self.stock_open)
-        self.obs_open.append(self.stock_open)
-        self.obs_open.append(self.stock_open)
-
-        self.obs_open.append(self.stock_open)
-        self.obs_open.append(self.stock_open)
-        self.obs_open.append(self.stock_open)
-        self.obs_open.append(self.stock_open)
-        self.obs_open.append(self.stock_open)
-
-
         self.balance = self.balance / MAX_ACCOUNT_BALANCE
         self.net_worth = self.net_worth / MAX_ACCOUNT_BALANCE
         self.shares_held = self.shares_held / MAX_ACCOUNT_BALANCE
@@ -113,15 +102,35 @@ class CustomStockEnv(gym.Env):
         self.total_sales_values = self.total_sales_values / MAX_ACCOUNT_BALANCE
         # self.profits = 
 
-        observation = [self.obs_open, self.obs_high, self.obs_close, self.obs_low, self.obs_volume,\
-            self.obs_balance, self.obs_net_worth, self.obs_shares_held, self.obs_cost_basis, self.obs_total_sales_values, self.obs_profits]
+
+        self.obs_open.append(self.stock_open)
+        self.obs_high.append(self.stock_high)
+        self.obs_close.append(self.stock_close)
+        self.obs_low.append(self.stock_low)
+        self.obs_volume.append(self.stock_volume)
+
+        self.obs_balance.append(self.balance)
+        self.obs_net_worth.append(self.net_worth)
+        self.obs_shares_held.append(self.shares_held)
+        self.obs_cost_basis.append(self.cost_basis)
+        self.obs_total_sales_values.append(self.total_sales_values)
+        # self.obs_profits.append(self.stock_open)
+
+
+        observation = [self.obs_open, self.obs_high, self.obs_close, self.obs_low, self.obs_volume, self.obs_balance, self.obs_net_worth, self.obs_shares_held, self.obs_cost_basis, self.obs_total_sales_values]
     
-        
         return observation
-
-
-
-
+        
+    # action = model에서 받음
+    def _take_action(self, action):
+        current_price = random.uniform(
+            self.data.loc[self.current_step, 'Open'], self.data.loc[self.current_step, 'Close'])
+        
+        action_type = action[0]
+        amount = action[1]
+        
+        if action_type < 1:
+            # Buy amount % of balance inshares
 
 
     def render(self, mode='live', close=False):

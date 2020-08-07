@@ -4,7 +4,6 @@ from bokeh.models.glyphs import VBar
 from bokeh.plotting import figure
 from bokeh.embed import components
 from bokeh.models.sources import ColumnDataSource
-
 from flask import Flask, render_template
 
 
@@ -93,4 +92,4 @@ def chart(bars_count):
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=True, host="127.0.0.1", port="8080")

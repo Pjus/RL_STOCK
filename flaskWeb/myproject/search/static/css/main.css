@@ -1,0 +1,83 @@
+
+/* search bar */
+.green_window {
+	display: inline-block;
+	width: 366px; height: 34px;
+	border: 3px solid #000000;
+	background: white;
+}
+.input_text {
+	width: 348px; height: 21px;
+	margin: 6px 0 0 9px;
+	border: 0;
+	line-height: 21px;
+	font-weight: bold;
+	font-size: 16px;
+	outline: none;
+}
+.sch_smit {
+	width: 54px; height: 40px;
+	margin: 0; border: 0;
+	vertical-align: top;
+	background: #030303;
+	color: white;
+	font-weight: bold;
+	border-radius: 1px;
+	cursor: pointer;
+}
+.sch_smit:hover {
+	background: #050505;
+}
+
+/* chart */
+.charts {
+    width: 80%;
+    height: 35%;
+    border: 1px solid blue;
+    overflow: hidden;
+    margin: auto;
+    margin-top: 50px;
+    background: #CFC3F8;
+    box-shadow: 10px 10px 5px #888888;
+}
+
+.pieChartDiv {
+    padding: 0;
+    float: right;
+    width: 50%;
+    height: 100%;
+    border-left: 1px solid white;
+}
+
+.lineChartDiv {
+    float: left;
+    width: 50%;
+    height: 100%;
+}
+
+#piechart {
+    width: 100%;
+    height: 100%;
+}
+
+#chart_div {
+    width: 100%;
+    height: 100%;
+}
+
+@media only screen and (max-width: 460px) {
+    .charts {
+        width: 80%;
+        height: 70%;
+    }
+    .pieChartDiv {
+        width: 100%;
+        height: 50%;
+        border: none;
+        border-bottom: 1px solid white;
+    }
+    .lineChartDiv {
+        width: 100%;
+        height: 50%;
+    }
+}

@@ -37,6 +37,7 @@ class Agent:
         self.initial_balance = 0 # 초기 자본금
         self.balance = 0 # 현재 자본금
         self.num_stocks = 0 
+        
         # 포트폴리오 가치 : balance + num_stocks * current_stock_price
         self.prtfolio_value = 0
         self.base_portfolio_value = 0 # 직전 학습 시점의 포트폴리오
