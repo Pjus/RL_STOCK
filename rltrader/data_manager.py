@@ -3,10 +3,15 @@ import numpy as np
 import pandas_datareader as pdr
 import indicator
 import pandas_datareader as pdr
+import datetime
+
+now = datetime.datetime.now()
+nowDate = now.strftime('%Y-%m-%d')
 
 COLUMNS_CHART_DATA = ['Date', 'Open', 'High', 'Low', 'Close', 'Volume']
 
-def load_data(ticker, start_date, end_date):
+
+def load_data(ticker, start_date, end_date=nowDate): 
     data = pdr.get_data_yahoo(ticker, start_date, end_date)
     data['Date'] = data.index
     data.index = range(len(data))
@@ -65,12 +70,15 @@ def get_train_data(chart_data):
     return TRAIN_DATA
 
 
+if __name__ == "__main__":
+    ticker = 'MSFT'
+    start_date = '2010-01-01'
 
+    df = load_data(ticker, start_date)
+    df['Date'] = df['Date'].astype('str')
 
-
-
-
-
+    predf = preprocess(df)
+    print(predf.head())
 
 
 

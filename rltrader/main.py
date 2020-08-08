@@ -7,6 +7,7 @@ import json
 import settings
 import utils
 import data_manager
+from agent import Agent
 
 
 if __name__ == '__main__':
@@ -62,7 +63,6 @@ if __name__ == '__main__':
         handlers=[file_handler, stream_handler], level=logging.DEBUG)
         
     # 로그, Keras Backend 설정을 먼저하고 RLTrader 모듈들을 이후에 임포트해야 함
-    from agent import Agent
     from learners import DQNLearner, PolicyGradientLearner, \
         ActorCriticLearner, A2CLearner, A3CLearner
 
