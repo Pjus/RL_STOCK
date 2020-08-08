@@ -1,5 +1,5 @@
 import numpy as np
-from rltrader import utils
+import utils
 
 class Agent:
     # 에이전트가 구성하는 값 개수
@@ -124,7 +124,7 @@ class Agent:
 
     def decide_trading_unit(self, confidence):
         if np.isnan(confidence):
-            return self.min_trading_unit:
+            return self.min_trading_unit
         added_trading = max(min(int(confidence * (self.max_trading_unit - self.min_trading_unit)), self.max_trading_unit - self.min_trading_unit), 0)
 
         return self.min_trading_unit + added_trading

@@ -1,0 +1,40 @@
+{% load static %}
+<html>
+  <head>
+    <title>Stock</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/chat.css' %}">
+
+
+    <!-- <script src="/static/js/test.js"></script> -->
+    <script src="https://cdn.amcharts.com/lib/4/core.js"></script>
+    <script src="https://cdn.amcharts.com/lib/4/charts.js"></script>
+    <script src="https://cdn.amcharts.com/lib/4/plugins/rangeSelector.js"></script>
+    <script src="https://cdn.amcharts.com/lib/4/themes/animated.js"></script>
+
+
+  </head>
+  
+  <body>
+    <!-- <script src="/static/js/stock_chart.js"></script> -->
+    <script src="/static/js/final.js"></script>
+
+
+    
+    <span class='green_window'>
+      <input type='text' id="ticker" class='input_text' onkeydown="enterkey()"/>
+    </span>
+
+    <button type='submit' class='sch_smit', onclick="search_stock()">검색</button>
+
+    <!-- <div id="chartdiv" style="height: 450px; width: 100%;"></div> -->
+
+    <div id="controls"></div>
+    <div id="chartdiv"></div>
+    
+
+
+      
+  </body>
+</html>
+
