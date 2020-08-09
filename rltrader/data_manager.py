@@ -2,7 +2,6 @@ import pandas as pd
 import numpy as np
 import pandas_datareader as pdr
 import indicator
-import pandas_datareader as pdr
 import datetime
 
 now = datetime.datetime.now()
