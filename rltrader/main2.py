@@ -1,5 +1,7 @@
 from data_manager import load_data, preprocess, get_train_data
 from environment import Environment
+
+
 ticker = 'MSFT'
 start_date = '2010-01-01'
 
